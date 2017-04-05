@@ -1,26 +1,54 @@
 package com.a3a04.android.lifestylist.meal;
 
+import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.MealLog;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
+import com.a3a04.android.lifestylist.main.MainActivity;
+import com.a3a04.android.lifestylist.main.SettingsActivity;
+import com.a3a04.android.lifestylist.sleep.SleepActivity;
+import com.a3a04.android.lifestylist.workout.WorkoutActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class MealActivity extends AppCompatActivity {
 
+    ActionBar mActionBar;
+    Button mMealBtn, mWorkoutBtn, mSleepBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
+
+        mActionBar = getSupportActionBar();
+        mActionBar.setTitle("Meal");
+        mActionBar.setHomeButtonEnabled(true);
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeAsUpIndicator(R.drawable.ic_home_white_24dp);
+        mActionBar.show();
+
+        mMealBtn = (Button) findViewById(R.id.btn_meal);
+        mWorkoutBtn = (Button) findViewById(R.id.btn_workout);
+        mSleepBtn = (Button) findViewById(R.id.btn_sleep);
+
+        mMealBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
+        mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+        mSleepBtn.setTextColor(getResources().getColor(R.color.colorBlack));
 
         TextView t = (TextView)findViewById(R.id.textView);
         t.setMovementMethod(new ScrollingMovementMethod());
@@ -97,5 +125,49 @@ public class MealActivity extends AppCompatActivity {
         db.closeDB();
 
         this.updateTextView();
+    }
+
+    public void openMeal(View view){
+        Intent intent = new Intent(MealActivity.this, MealActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void openWorkout(View view){
+        Intent intent = new Intent(MealActivity.this, WorkoutActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void openSleep(View view){
+        Intent intent = new Intent(MealActivity.this, SleepActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_actionbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+
+            case R.id.action_settings:
+                Intent mSettingIntent = new Intent(MealActivity.this, SettingsActivity.class);
+                startActivity(mSettingIntent);
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

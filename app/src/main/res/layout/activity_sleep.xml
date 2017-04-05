@@ -62,4 +62,11 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintLeft_toLeftOf="@+id/textView" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include layout="@layout/layout_navigation"/>
+    </RelativeLayout>
+
+
 </android.support.constraint.ConstraintLayout>

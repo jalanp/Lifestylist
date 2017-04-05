@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_alignParentBottom="true"
+    android:weightSum="3">
+
+    <Button
+        android:id="@+id/btn_meal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/title_meal"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorWhite"
+        android:onClick="openMeal" />
+
+    <Button
+        android:id="@+id/btn_workout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/title_workout"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorWhite"
+        android:onClick="openWorkout" />
+
+    <Button
+        android:id="@+id/btn_sleep"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/title_sleep"
+        android:textAllCaps="false"
+        android:textColor="@color/colorBlack"
+        android:background="@color/colorWhite"
+        android:onClick="openSleep" />
+
+</LinearLayout>
