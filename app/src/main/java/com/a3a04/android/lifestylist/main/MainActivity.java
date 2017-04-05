@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mMealBtn = (Button) findViewById(R.id.btn_meal);
         mWorkoutBtn = (Button) findViewById(R.id.btn_workout);
         mSleepBtn = (Button) findViewById(R.id.btn_sleep);
-        mSettingsBtn = (Button) findViewById(R.id.Settings);
+        
 
 
         mMealBtn.setTextColor(getResources().getColor(R.color.colorBlack));
@@ -59,11 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSleep(View view){
         Intent intent = new Intent(MainActivity.this, SleepActivity.class);
-        startActivity(intent);
-    }
-
-    public void openSettings(View view){
-        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
 
