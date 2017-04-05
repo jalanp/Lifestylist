@@ -1,13 +1,11 @@
 package com.a3a04.android.lifestylist.main;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.a3a04.android.lifestylist.R;
-import com.a3a04.android.lifestylist.sleep.SleepActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -24,6 +22,9 @@ public class SettingsActivity extends AppCompatActivity {
         mActionBar.setHomeButtonEnabled(true);
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.show();
+
+
+
     }
 
     @Override

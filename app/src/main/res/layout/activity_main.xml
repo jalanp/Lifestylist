@@ -44,5 +44,17 @@
         android:text="Button"
         android:onClick="openSleep"/>
 
-    <include layout="@layout/layout_navigation"/>
+    <include layout="@layout/layout_navigation"
+        android:id="@+id/include" />
+
+    <Button
+        android:id="@+id/Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/include"
+        android:layout_marginBottom="50dp"
+        android:onClick="openSettings"
+        android:text="Button"
+        android:layout_alignRight="@+id/button5"
+        android:layout_alignEnd="@+id/button5" />
 </RelativeLayout>

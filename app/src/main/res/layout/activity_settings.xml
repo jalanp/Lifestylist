@@ -1,9 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.a3a04.android.lifestylist.main.SettingsActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="Settings Screen" />
+
+    <EditText
+        android:id="@+id/input2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:layout_below="@+id/input1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:id="@+id/input1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView11"
+        android:layout_marginTop="23dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/input3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/input2"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/input4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/input3"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/input5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/input4"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/val1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/input1"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:text="Value1" />
+
+    <TextView
+        android:id="@+id/val2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/val1"
+        android:layout_alignStart="@+id/val1"
+        android:layout_below="@+id/input1"
+        android:text="Value2" />
+
+    <TextView
+        android:id="@+id/val3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/val2"
+        android:layout_alignStart="@+id/val2"
+        android:layout_below="@+id/input2"
+        android:text="Value3" />
+
+    <TextView
+        android:id="@+id/val4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/val3"
+        android:layout_alignStart="@+id/val3"
+        android:layout_below="@+id/input3"
+        android:text="Value4" />
+
+    <TextView
+        android:id="@+id/val5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/val4"
+        android:layout_alignRight="@+id/val4"
+        android:layout_below="@+id/input4"
+        android:text="Value5" />
+
+    <SeekBar
+        android:id="@+id/Fitbit"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input5"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/textView11"
+        android:layout_toRightOf="@+id/textView11"
+        android:max="1"
+        android:progress="0" />
+
+    <ToggleButton
+        android:id="@+id/MealToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="52dp"
+        android:text="ToggleButton"
+        android:layout_below="@+id/input5"
+        android:layout_alignLeft="@+id/input5"
+        android:layout_alignStart="@+id/input5" />
+
+    <ToggleButton
+        android:id="@+id/SleepToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/MealToggle"
+        android:layout_alignStart="@+id/MealToggle"
+        android:layout_below="@+id/MealToggle"
+        android:text="ToggleButton" />
+
+    <ToggleButton
+        android:id="@+id/WorkoutToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/SleepToggle"
+        android:layout_alignRight="@+id/SleepToggle"
+        android:layout_below="@+id/SleepToggle"
+        android:text="ToggleButton" />
+
+    <TextView
+        android:id="@+id/Meal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/val5"
+        android:layout_alignStart="@+id/val5"
+        android:layout_alignTop="@+id/MealToggle"
+        android:text="Meal" />
+
+    <TextView
+        android:id="@+id/Sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/Meal"
+        android:layout_alignRight="@+id/Meal"
+        android:layout_below="@+id/MealToggle"
+        android:text="Sleep" />
+
+    <TextView
+        android:id="@+id/Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Meal"
+        android:layout_alignStart="@+id/Meal"
+        android:layout_below="@+id/SleepToggle"
+        android:text="Workout" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/WorkoutToggle"
+        android:text="Button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Fitbit"
+        android:layout_alignLeft="@+id/Meal"
+        android:layout_alignStart="@+id/Meal"
+        android:text="Fitbit" />
+
+</RelativeLayout>

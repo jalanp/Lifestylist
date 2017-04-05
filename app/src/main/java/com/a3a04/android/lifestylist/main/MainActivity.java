@@ -21,7 +21,7 @@ import com.a3a04.android.lifestylist.workout.WorkoutActivity;
 public class MainActivity extends AppCompatActivity {
 
     ActionBar mActionBar;
-    Button mMealBtn, mWorkoutBtn, mSleepBtn;
+    Button mMealBtn, mWorkoutBtn, mSleepBtn,mSettingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,13 @@ public class MainActivity extends AppCompatActivity {
         mMealBtn = (Button) findViewById(R.id.btn_meal);
         mWorkoutBtn = (Button) findViewById(R.id.btn_workout);
         mSleepBtn = (Button) findViewById(R.id.btn_sleep);
+        mSettingsBtn = (Button) findViewById(R.id.Settings);
+
 
         mMealBtn.setTextColor(getResources().getColor(R.color.colorBlack));
         mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
         mSleepBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+
     }
 
     public void openMeal(View view){
@@ -56,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openSleep(View view){
         Intent intent = new Intent(MainActivity.this, SleepActivity.class);
+        startActivity(intent);
+    }
+
+    public void openSettings(View view){
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
         startActivity(intent);
     }
 
