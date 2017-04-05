@@ -1,136 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:id="@+id/relative_layout"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:text="Settings Screen" />
+        >
 
-    <EditText
-        android:id="@+id/input2"
+        <TextView
+            android:id="@+id/val1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="Value1"
+            />
+
+        <TextView
+            android:id="@+id/val2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/val1"
+            android:layout_alignStart="@+id/val1"
+            android:layout_below="@+id/val1"
+            android:layout_marginTop="16dp"
+            android:text="Value2" />
+
+        <TextView
+            android:id="@+id/val3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/val2"
+            android:layout_alignStart="@+id/val2"
+            android:layout_marginTop="16dp"
+            android:layout_below="@id/val2"
+            android:text="Value3" />
+
+        <TextView
+            android:id="@+id/val4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/val3"
+            android:layout_alignStart="@+id/val3"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/val3"
+            android:text="Value4" />
+
+        <TextView
+            android:id="@+id/val5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/val4"
+            android:layout_alignStart="@+id/val4"
+            android:layout_marginTop="16dp"
+            android:text="Value5"
+            android:layout_below="@id/val4"/>
+
+
+
+        <EditText
+            android:id="@+id/input1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/val1"
+            android:layout_toRightOf="@+id/val1"
+            android:layout_marginLeft="8dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/input2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_alignBaseline="@+id/val2"
+            android:layout_toRightOf="@+id/val2"
+            android:layout_marginLeft="8dp" />
+
+        <EditText
+            android:id="@+id/input3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/val3"
+            android:layout_toRightOf="@+id/val3"
+            android:layout_marginLeft="8dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/input4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/val4"
+            android:layout_toRightOf="@+id/val4"
+            android:layout_marginLeft="8dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/input5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/val5"
+            android:layout_toRightOf="@+id/val5"
+            android:layout_marginLeft="8dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    </RelativeLayout>
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:textColor="@color/colorWhite"
+        />
+
+    <Switch
+        android:id="@+id/switch_fitbit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/input1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <EditText
-        android:id="@+id/input1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView11"
-        android:layout_marginTop="23dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/input3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/input2"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/input4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/input3"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/input5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/input4"
-        android:ems="10"
-        android:inputType="textPersonName" />
+        android:layout_alignLeft="@+id/relative_layout"
+        android:layout_alignStart="@+id/relative_layout"
+        android:layout_below="@+id/relative_layout"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="36dp"
+        android:text="Fitbit\t\t" />
 
     <TextView
-        android:id="@+id/val1"
+        android:id="@+id/Meal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/input1"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:text="Value1" />
+        android:layout_alignLeft="@+id/switch_fitbit"
+        android:layout_alignStart="@+id/switch_fitbit"
+        android:layout_below="@id/switch_fitbit"
+        android:layout_marginTop="36dp"
+        android:text="@string/title_meal" />
 
     <TextView
-        android:id="@+id/val2"
+        android:id="@+id/Sleep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/val1"
-        android:layout_alignStart="@+id/val1"
-        android:layout_below="@+id/input1"
-        android:text="Value2" />
+        android:layout_alignLeft="@+id/Meal"
+        android:layout_alignStart="@+id/Meal"
+        android:layout_below="@+id/Meal"
+        android:layout_marginTop="18dp"
+        android:text="@string/title_sleep" />
 
     <TextView
-        android:id="@+id/val3"
+        android:id="@+id/Workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/val2"
-        android:layout_alignStart="@+id/val2"
-        android:layout_below="@+id/input2"
-        android:text="Value3" />
-
-    <TextView
-        android:id="@+id/val4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/val3"
-        android:layout_alignStart="@+id/val3"
-        android:layout_below="@+id/input3"
-        android:text="Value4" />
-
-    <TextView
-        android:id="@+id/val5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/val4"
-        android:layout_alignRight="@+id/val4"
-        android:layout_below="@+id/input4"
-        android:text="Value5" />
-
-    <SeekBar
-        android:id="@+id/Fitbit"
-        style="@style/Widget.AppCompat.SeekBar.Discrete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/input5"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/textView11"
-        android:layout_toRightOf="@+id/textView11"
-        android:max="1"
-        android:progress="0" />
+        android:layout_alignLeft="@+id/Meal"
+        android:layout_alignStart="@+id/Meal"
+        android:layout_below="@+id/Sleep"
+        android:layout_marginTop="18dp"
+        android:text="@string/title_workout" />
 
     <ToggleButton
         android:id="@+id/MealToggle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="56dp"
-        android:layout_marginStart="56dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="36dp"
         android:text="ToggleButton"
-        android:layout_below="@+id/Fitbit"
-        android:layout_alignLeft="@+id/input5"
-        android:layout_alignStart="@+id/input5" />
+        android:layout_alignBottom="@id/Meal"
+
+        />
 
     <ToggleButton
         android:id="@+id/SleepToggle"
@@ -149,50 +197,5 @@
         android:layout_alignRight="@+id/SleepToggle"
         android:layout_below="@+id/SleepToggle"
         android:text="ToggleButton" />
-
-    <TextView
-        android:id="@+id/Meal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/val5"
-        android:layout_alignStart="@+id/val5"
-        android:layout_alignTop="@+id/MealToggle"
-        android:text="Meal" />
-
-    <TextView
-        android:id="@+id/Sleep"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/Meal"
-        android:layout_alignRight="@+id/Meal"
-        android:layout_below="@+id/MealToggle"
-        android:text="Sleep" />
-
-    <TextView
-        android:id="@+id/Workout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Meal"
-        android:layout_alignStart="@+id/Meal"
-        android:layout_below="@+id/SleepToggle"
-        android:text="Workout" />
-
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/WorkoutToggle"
-        android:text="Button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/Fitbit"
-        android:layout_alignLeft="@+id/Meal"
-        android:layout_alignStart="@+id/Meal"
-        android:text="Fitbit" />
 
 </RelativeLayout>

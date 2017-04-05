@@ -30,16 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.show();
 
-        input1=(EditText) findViewById(R.id.input1);
-        input2=(EditText) findViewById(R.id.input2);
-        input3=(EditText) findViewById(R.id.input3);
-        input4=(EditText) findViewById(R.id.input4);
-        input5=(EditText) findViewById(R.id.input5);
-        sleep=(ToggleButton) findViewById(R.id.SleepToggle);
-        meal=(ToggleButton) findViewById(R.id.MealToggle);
-        workout=(ToggleButton) findViewById(R.id.WorkoutToggle);
-        Fitbit=(SeekBar) findViewById(R.id.Fitbit);
-
 
     }
 
