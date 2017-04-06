@@ -19,6 +19,7 @@ import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.WorkoutLog;
 import com.a3a04.android.lifestylist.main.MainActivity;
 import com.a3a04.android.lifestylist.main.SettingsActivity;
+import com.a3a04.android.lifestylist.meal.MapsActivity;
 import com.a3a04.android.lifestylist.meal.MealActivity;
 import com.a3a04.android.lifestylist.sleep.SleepActivity;
 
@@ -30,6 +31,7 @@ public class WorkoutActivity extends AppCompatActivity {
 
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
+    Button mGymBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class WorkoutActivity extends AppCompatActivity {
         mMealBtn = (Button) findViewById(R.id.btn_meal);
         mWorkoutBtn = (Button) findViewById(R.id.btn_workout);
         mSleepBtn = (Button) findViewById(R.id.btn_sleep);
+
+        mGymBtn = (Button) findViewById(R.id.findGym);
 
         mMealBtn.setTextColor(getResources().getColor(R.color.colorBlack));
         mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
@@ -144,6 +148,12 @@ public class WorkoutActivity extends AppCompatActivity {
         Intent intent = new Intent(WorkoutActivity.this, SleepActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void openMap(View view){
+        Intent intent = new Intent(WorkoutActivity.this, MapsActivity.class);
+        intent.putExtra("activity","workout");
+        startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

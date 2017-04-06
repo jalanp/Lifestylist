@@ -66,6 +66,7 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/recommendDisplay"
             android:layout_marginTop="10dp"
+            android:onClick="openMap"
             />
 
     </RelativeLayout>

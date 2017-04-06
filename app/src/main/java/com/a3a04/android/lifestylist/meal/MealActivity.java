@@ -29,6 +29,7 @@ public class MealActivity extends AppCompatActivity {
 
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
+    Button mFindFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,8 @@ public class MealActivity extends AppCompatActivity {
         mMealBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
         mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
         mSleepBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+
+        mFindFood = (Button) findViewById(R.id.findFood);
 
         TextView t = (TextView)findViewById(R.id.textView);
         t.setMovementMethod(new ScrollingMovementMethod());
@@ -143,6 +146,12 @@ public class MealActivity extends AppCompatActivity {
         Intent intent = new Intent(MealActivity.this, SleepActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void openMap(View view){
+        Intent intent = new Intent(MealActivity.this, MapsActivity.class);
+        intent.putExtra("activity","meal");
+        startActivity(intent);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
