@@ -178,7 +178,8 @@
         android:layout_marginRight="36dp"
         android:checked="true"
 
-        android:text="ToggleButton" />
+        android:text="ToggleButton"
+        android:onClick="mealToggleChecker"/>
 
     <ToggleButton
         android:id="@+id/SleepToggle"
@@ -188,7 +189,8 @@
         android:layout_alignStart="@+id/MealToggle"
         android:layout_below="@+id/MealToggle"
         android:checked="true"
-        android:text="ToggleButton" />
+        android:text="ToggleButton"
+        android:onClick="sleepToggleChecker" />
 
     <ToggleButton
         android:id="@+id/WorkoutToggle"
@@ -198,6 +200,7 @@
         android:layout_alignRight="@+id/SleepToggle"
         android:layout_below="@+id/SleepToggle"
         android:checked="true"
-        android:text="ToggleButton" />
+        android:text="ToggleButton"
+        android:onClick="workoutToggleChecker"/>
 
 </RelativeLayout>

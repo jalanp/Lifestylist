@@ -3,7 +3,9 @@ package com.a3a04.android.lifestylist.main;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.ToggleButton;
@@ -30,6 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.show();
 
+        meal = (ToggleButton) findViewById(R.id.MealToggle);
+        sleep = (ToggleButton) findViewById(R.id.SleepToggle);
+        workout = (ToggleButton) findViewById(R.id.WorkoutToggle);
+
+        //meal.isChecked();
+
 
     }
 
@@ -45,6 +53,24 @@ public class SettingsActivity extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+    public void mealToggleChecker(View view){
+        if ((!sleep.isChecked()) & (!workout.isChecked())){
+            meal.setChecked(true);
+        }
+    }
+
+    public void sleepToggleChecker(View view){
+        if ((!meal.isChecked()) & (!workout.isChecked())){
+            sleep.setChecked(true);
+        }
+    }
+
+    public void workoutToggleChecker(View view){
+        if ((!meal.isChecked()) & (!sleep.isChecked())){
+            workout.setChecked(true);
         }
     }
 }
