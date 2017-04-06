@@ -26,11 +26,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_DATE = "date";
     private static final String KEY_TIME = "time";
     private static final String KEY_CALORIES = "calories";
-    private static final String KEY_ACTIVEMINS = "activemins";
-    private static final String KEY_WAKETIME = "waketime";
-    private static final String KEY_TIMESLEPT = "timeslept";
-    private static final String KEY_FROMDATE = "fromdate";
-    private static final String KEY_TODATE = "todate";
+    private static final String KEY_ACTIVEMINS = "activeMins";
+    private static final String KEY_SLEEPTIME = "sleepTime";
+    private static final String KEY_WAKETIME = "wakeTime";
+    private static final String KEY_FROMDATE = "fromDate";
+    private static final String KEY_TODATE = "toDate";
     private static final String KEY_DETAILS = "details";
 
     private static final String KEY_NAME = "name";
@@ -39,6 +39,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_HEIGHT = "height";
     private static final String KEY_WEIGHT = "weight";
     private static final String KEY_INTEGRATION = "integration";
+    private static final String KEY_GENDER = "gender";
+    private static final String KEY_FIRST_LOGIN = "firstLogin";
+    private static final String KEY_MEAL_TOGGLE = "mealToggle";
+    private static final String KEY_WORKOUT_TOGGLE = "workoutToggle";
+    private static final String KEY_SLEEP_TOGGLE = "sleepToggle";
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -59,8 +64,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_USER_SLEEP_TABLE = "CREATE TABLE " + TABLE_USER_SLEEP + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_DATE + " TEXT,"
-                + KEY_WAKETIME + " TEXT,"
-                + KEY_TIMESLEPT + " INTEGER" + ")";
+                + KEY_SLEEPTIME + " TEXT,"
+                + KEY_WAKETIME + " TEXT" + ")";
         String CREATE_USER_MIA_TABLE = "CREATE TABLE " + TABLE_USER_MIA + "("
                 + KEY_ID + " INTEGER PRIMARY KEY,"
                 + KEY_FROMDATE + " TEXT,"
@@ -73,7 +78,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_AGE + " INTEGER,"
                 + KEY_HEIGHT + " INTEGER,"
                 + KEY_WEIGHT + " INTEGER,"
-                + KEY_INTEGRATION + " INTEGER" + ")";
+                + KEY_INTEGRATION + " INTEGER,"
+                + KEY_GENDER + " INTEGER,"
+                + KEY_MEAL_TOGGLE + " INTEGER,"
+                + KEY_WORKOUT_TOGGLE + " INTEGER,"
+                + KEY_SLEEP_TOGGLE + " INTEGER,"
+                + KEY_FIRST_LOGIN + " INTEGER" + ")";
         db.execSQL(CREATE_USER_MEAL_TABLE);
         db.execSQL(CREATE_USER_WORKOUT_TABLE);
         db.execSQL(CREATE_USER_SLEEP_TABLE);
@@ -125,8 +135,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, log.getDate());
+        values.put(KEY_SLEEPTIME, log.getSleepTime());
         values.put(KEY_WAKETIME, log.getWakeTime());
-        values.put(KEY_TIMESLEPT, log.getTimeSlept());
 
         db.insert(TABLE_USER_SLEEP, null, values);
         db.close();
@@ -137,9 +147,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_DATE, log.getFromDate());
-        values.put(KEY_WAKETIME, log.getToDate());
-        values.put(KEY_TIMESLEPT, log.getDetails());
+        values.put(KEY_FROMDATE, log.getFromDate());
+        values.put(KEY_TODATE, log.getToDate());
+        values.put(KEY_DETAILS, log.getDetails());
 
         db.insert(TABLE_USER_MIA, null, values);
         db.close();
@@ -156,6 +166,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_HEIGHT, data.getHeight());
         values.put(KEY_WEIGHT, data.getWeight());
         values.put(KEY_INTEGRATION, data.getIntegration());
+        values.put(KEY_GENDER, data.getGender());
+        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
+        values.put(KEY_MEAL_TOGGLE, data.getMealToggle());
+        values.put(KEY_WORKOUT_TOGGLE, data.getWorkoutToggle());
+        values.put(KEY_SLEEP_TOGGLE, data.getSleepToggle());
+
 
         db.insert(TABLE_USER_PERSONAL, null, values);
         db.close();
@@ -198,13 +214,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_USER_SLEEP, new String[] { KEY_ID,
-                        KEY_DATE, KEY_WAKETIME, KEY_TIMESLEPT }, KEY_ID + "=?",
+                        KEY_DATE, KEY_SLEEPTIME, KEY_WAKETIME }, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         SleepLog log = new SleepLog(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)));
+                cursor.getString(1), cursor.getString(2), cursor.getString(3));
 
         return log;
     }
@@ -231,7 +247,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_USER_PERSONAL, new String[] { KEY_ID,
                         KEY_NAME, KEY_ADDRESS, KEY_AGE, KEY_HEIGHT,
-                        KEY_WEIGHT, KEY_INTEGRATION}, KEY_ID + "=?",
+                        KEY_WEIGHT, KEY_INTEGRATION, KEY_GENDER,
+                        KEY_FIRST_LOGIN}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -239,7 +256,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         PersonalData data = new PersonalData(Integer.parseInt(cursor.getString(0)),
                 cursor.getString(1), cursor.getString(2), Integer.parseInt(cursor.getString(3)),
                 Integer.parseInt(cursor.getString(4)), Integer.parseInt(cursor.getString(5)),
-                Integer.parseInt(cursor.getString(6)));
+                Integer.parseInt(cursor.getString(6)), Integer.parseInt(cursor.getString(7)),
+                Integer.parseInt(cursor.getString(8)), Integer.parseInt(cursor.getString(9)),
+                Integer.parseInt(cursor.getString(10)), Integer.parseInt(cursor.getString(11)));
 
         return data;
     }
@@ -306,8 +325,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 SleepLog s = new SleepLog();
                 s.setID(Integer.parseInt(cursor.getString(0)));
                 s.setDate(cursor.getString(1));
-                s.setWakeTime(cursor.getString(2));
-                s.setTimeSlept(Integer.parseInt(cursor.getString(3)));
+                s.setSleepTime(cursor.getString(2));
+                s.setWakeTime(cursor.getString(3));
                 logList.add(s);
             } while (cursor.moveToNext());
         }
@@ -350,8 +369,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_DATE, log.getDate());
+        values.put(KEY_SLEEPTIME, log.getSleepTime());
         values.put(KEY_WAKETIME, log.getWakeTime());
-        values.put(KEY_TIMESLEPT, log.getTimeSlept());
 
         // updating row
         return db.update(TABLE_USER_SLEEP, values, KEY_ID + " = ?",
@@ -383,6 +402,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_HEIGHT, data.getHeight());
         values.put(KEY_WEIGHT, data.getWeight());
         values.put(KEY_INTEGRATION, data.getIntegration());
+        values.put(KEY_GENDER, data.getGender());
+        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
+        values.put(KEY_MEAL_TOGGLE, data.getMealToggle());
+        values.put(KEY_WORKOUT_TOGGLE, data.getWorkoutToggle());
+        values.put(KEY_SLEEP_TOGGLE, data.getSleepToggle());
 
         // updating row
         return db.update(TABLE_USER_PERSONAL, values, KEY_ID + " = ?",

@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.SleepLog;
-import com.a3a04.android.lifestylist.main.MainActivity;
 import com.a3a04.android.lifestylist.main.SettingsActivity;
 import com.a3a04.android.lifestylist.meal.MealActivity;
 import com.a3a04.android.lifestylist.workout.WorkoutActivity;
@@ -60,7 +59,7 @@ public class SleepActivity extends AppCompatActivity {
             t.append(stuff.get(i).getID() + "\t\t"
                     + stuff.get(i).getDate() + "\t\t"
                     + stuff.get(i).getWakeTime() + "\t\t"
-                    + stuff.get(i).getTimeSlept());
+                    + stuff.get(i).getSleepTime());
             t.append("\n");
         }
 
@@ -81,16 +80,18 @@ public class SleepActivity extends AppCompatActivity {
         //String date = c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH);
         //String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
 
-        int x = 0;
+        /*int x = 0;
 
         try {
             EditText t = (EditText)findViewById(R.id.editText);
             x = Integer.parseInt(t.getText().toString());
         } catch(NumberFormatException e){
             Log.v("error","not number");
-        }
+        }*/
 
-        db.addLog(new SleepLog(date, time, x));
+        EditText t = (EditText)findViewById(R.id.editText);
+        String wakeTime = t.getText().toString();
+        db.addLog(new SleepLog(date, time, wakeTime));
 
         db.closeDB();
 
@@ -108,7 +109,7 @@ public class SleepActivity extends AppCompatActivity {
             t.append(stuff.get(i).getID() + "\t\t"
                     + stuff.get(i).getDate() + "\t\t"
                     + stuff.get(i).getWakeTime() + "\t\t"
-                    + stuff.get(i).getTimeSlept());
+                    + stuff.get(i).getSleepTime());
             t.append("\n");
         }
 
