@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/log"
+        >
+
+        <EditText
+            android:id="@+id/calories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter meal calories"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/logButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log"
+            android:layout_alignBottom="@+id/calories"
+            android:layout_toRightOf="@+id/calories"
+            android:layout_marginLeft="16dp"
+            />
+        <TextView
+            android:id="@+id/mealLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/calories"
+            android:layout_below="@+id/calories"
+            android:layout_marginTop="16dp"
+            android:scrollbars="vertical"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/recommendationScreen"
+        >
+
+        <TextView
+            android:id="@+id/recommendDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_weight = "1"
+            android:scrollbars="vertical"
+            />
+
+        <Button
+            android:id="@+id/findFood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Food!"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/recommendDisplay"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

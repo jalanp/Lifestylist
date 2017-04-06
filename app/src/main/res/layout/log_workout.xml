@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/log"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/activeMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:hint="Enter active minutes"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/logButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:text="Log"
+            android:layout_marginStart="22dp"
+            android:layout_alignBottom="@+id/activeMinutes"
+            android:layout_toRightOf="@+id/activeMinutes"
+            android:layout_toEndOf="@+id/activeMinutes" />
+
+        <TextView
+            android:id="@+id/workoutLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/activeMinutes"
+            android:layout_below="@+id/activeMinutes"
+            android:layout_marginTop="16dp"
+            android:scrollbars="vertical"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/recommendationScreen"
+        >
+
+        <TextView
+            android:id="@+id/recommendDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_weight = "1"
+            android:scrollbars="vertical"
+            />
+
+        <Button
+            android:id="@+id/findGym"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find a Gym!"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/recommendDisplay"
+            android:layout_marginTop="10dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

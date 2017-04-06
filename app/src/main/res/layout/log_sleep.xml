@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/log"
+        >
+
+        <EditText
+            android:id="@+id/sleepTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="20dp"
+            android:hint="Enter sleep time as hh:mm"
+            android:inputType="time" />
+
+        <Button
+            android:id="@+id/logSleepButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_alignTop="@+id/sleepTime"
+            android:layout_toRightOf="@+id/sleepTime"
+            android:layout_toEndOf="@+id/sleepTime"
+            android:layout_above="@+id/wakeTime" />
+        <EditText
+            android:id="@+id/wakeTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter wake time as hh:mm"
+            android:inputType="time"
+            android:layout_below="@+id/sleepTime"
+            android:layout_toLeftOf="@+id/logSleepButton"
+            android:layout_toStartOf="@+id/logSleepButton" />
+        <Button
+            android:id="@+id/logWakeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log"
+            android:layout_below="@+id/logSleepButton"
+            android:layout_alignLeft="@+id/logSleepButton"
+            android:layout_alignStart="@+id/logSleepButton"
+            android:layout_alignBottom="@+id/wakeTime" />
+        <TextView
+            android:id="@+id/sleepLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wakeTime"
+            android:layout_below="@+id/wakeTime"
+            android:layout_marginTop="16dp"
+            android:scrollbars="vertical"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/recommendationScreen"
+        >
+
+        <TextView
+            android:id="@+id/recommendDisplay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="36dp"
+            android:layout_weight = "1"
+            android:scrollbars="vertical"
+            />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

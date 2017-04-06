@@ -16,7 +16,8 @@
         android:layout_marginTop="135dp"
         android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -26,7 +27,8 @@
         android:layout_marginTop="31dp"
         android:text="WorkoutScreen"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/button"
@@ -37,7 +39,8 @@
         android:onClick="addItem"
         android:text="Add"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/button3"
@@ -48,7 +51,8 @@
         app:layout_constraintTop_toTopOf="@+id/button"
         android:layout_marginTop="0dp"
         android:layout_marginRight="-3dp"
-        app:layout_constraintRight_toRightOf="@+id/textView" />
+        app:layout_constraintRight_toRightOf="@+id/textView"
+        android:visibility="gone"/>
 
     <EditText
         android:id="@+id/editText"
@@ -60,7 +64,14 @@
         android:inputType="textPersonName"
         android:text="Active Minutes"
         app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintLeft_toLeftOf="@+id/textView" />
+        app:layout_constraintLeft_toLeftOf="@+id/textView"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include layout="@layout/log_workout"/>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
