@@ -1,6 +1,7 @@
 package com.a3a04.android.lifestylist.sleep;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +31,11 @@ public class SleepActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
     SleepController sleepControl;
+    public static final String MY_PREFS_NAME = "SharedPref";
+    int mealToggle;
+    int sleepToggle;
+    int workoutToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +82,62 @@ public class SleepActivity extends AppCompatActivity {
 //        }
 
 
+
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        int restoredText = prefs.getInt("FirstTime", -1);
+        if (restoredText == -1) {
+            SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+            editor.putInt("FirstTime", 1);
+            editor.putInt("SleepToggle", 1);
+            editor.putInt("MealToggle", 1);
+            editor.putInt("WorkoutToggle", 1);
+            editor.commit();
+        } else {
+            mealToggle = prefs.getInt("MealToggle", -1);
+            sleepToggle = prefs.getInt("SleepToggle", -1);
+            workoutToggle = prefs.getInt("WorkoutToggle", -1);
+
+            Log.d("test1","A"+ mealToggle);
+            Log.d("test1","B"+sleepToggle);
+            Log.d("test1","C"+workoutToggle);
+            Log.d("test1","Commit");
+
+            if (mealToggle == 0){
+                mMealBtn.setEnabled(false);
+                mMealBtn.setTextColor(getResources().getColor(R.color.colorGrey));
+
+            }
+
+            if (mealToggle == 1) {
+                mMealBtn.setEnabled(true);
+                mMealBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+
+            }
+            Log.d("test",String.valueOf(sleepToggle));
+
+            if (sleepToggle == 0){
+                Log.d("test",String.valueOf(sleepToggle));
+                mSleepBtn.setEnabled(false);
+                mSleepBtn.setTextColor(getResources().getColor(R.color.colorGrey));
+
+            }
+            if (sleepToggle == 1){
+                Log.d("test","onnnnn");
+                mSleepBtn.setEnabled(true);
+                mSleepBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+
+            }
+            if (workoutToggle == 0){
+                mWorkoutBtn.setEnabled(false);
+                mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorGrey));
+
+            }
+            if (workoutToggle == 1){
+                mWorkoutBtn.setEnabled(true);
+                mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
+            }
+
+        }
 
         db.closeDB();
 
