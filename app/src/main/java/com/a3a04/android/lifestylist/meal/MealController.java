@@ -2,6 +2,8 @@ package com.a3a04.android.lifestylist.meal;
 
 import android.content.Context;
 import android.util.Log;
+import android.content.SharedPreferences;
+
 
 import com.a3a04.android.lifestylist.main.MainController;
 import com.a3a04.android.lifestylist.database.*;
@@ -23,9 +25,14 @@ public class MealController {
     MainController mainControl = new MainController();
     List<WorkoutLog> workoutLogs;
     List<SleepLog> sleepLogs;
+
     List<MealLog> todaysLogs;
     ArrayList<String[]> mealItems, breakfasts, lunches, dinners, snacks;
     int calorieBenchmark;
+
+    Context c;
+    int sleepToggle;
+    int workoutToggle;
 
     protected MealController(){
         super();
@@ -33,6 +40,7 @@ public class MealController {
 
     public MealController(Context context){
         userLogs = new DatabaseHandler(context);
+
         String mealDB = "Peanut Butter & Jelly Sandwich;breakfast;400\n" +
                 "Greek Yogurt with Maple-Nut Granola;breakfast;400\n" +
                 "Scrambled Eggs on Toast;breakfast;600\n" +
@@ -81,6 +89,9 @@ public class MealController {
                     break;
             }
         }
+
+        c = context;
+
     }
 
     protected void generateRecommendation(){
@@ -113,7 +124,12 @@ public class MealController {
                 }
         }
 
-        if(userLogs.getPersonalData(1).getWorkoutToggle()==1 && userLogs.getPersonalData(1).getSleepToggle()==1){//Both on
+        SharedPreferences prefs = c.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
+        sleepToggle = prefs.getInt("SleepToggle", -1);
+        workoutToggle = prefs.getInt("WorkoutToggle", -1);
+
+
+        if(workoutToggle==1 && sleepToggle==1){//Both on
             double timeSlept = 7.5;
             double weightLB = 140;
             int activeMins = 30;
@@ -123,14 +139,14 @@ public class MealController {
             int burnedCalsSleep = Double.valueOf(0.42 * weightKG * timeSlept).intValue();
             recommendation = recommendMeal(getCurrentCalories() + burnedCalsWorkout + burnedCalsSleep);
         }
-        else if(userLogs.getPersonalData(1).getWorkoutToggle()==0 && userLogs.getPersonalData(1).getSleepToggle()==1){//Workout off, Sleep on
+        else if(workoutToggle==0 && sleepToggle==1){//Workout off, Sleep on
             double timeSlept = 7.5;
             double weight = 140;
 
             int burnedCals = Double.valueOf(0.42 * weight * timeSlept).intValue();
             recommendation = recommendMeal(getCurrentCalories() + burnedCals);
         }
-        else if(userLogs.getPersonalData(1).getWorkoutToggle()==1 && userLogs.getPersonalData(1).getSleepToggle()==0){//Workout on, Sleep off
+        else if(workoutToggle==1 && sleepToggle==0){//Workout on, Sleep off
             int activeMins = 30;
             double weight = 140/2.2;
 
@@ -255,7 +271,7 @@ public class MealController {
      */
     public MealLog getLastUserMealData(){
 
-        return userLogs.getMealLog(-1);
+        return userLogs.getMealLog(getAllUserMealData().size() -1);
 
     }
 
