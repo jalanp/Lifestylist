@@ -1,6 +1,7 @@
 package com.a3a04.android.lifestylist.sleep;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
@@ -22,31 +23,83 @@ public class SleepController {
     List<MealLog> mealLogs;
     List<WorkoutLog> workoutLogs;
     List<SleepLog> sleepLogs;
+    double sleepToday;
+    double sleepYesterday;
+    Context c;
+    int mealToggle;
+    int workoutToggle;
 
-    protected SleepController(){
+    public SleepController(){
         super();
     }
 
     public SleepController(Context context){
         userLogs = new DatabaseHandler(context);
+        c = context;
     }
 
-    protected void generateRecommendation(){
+    protected double generateRecommendation(){
 
         updateRecommendation();
 
-        if(userLogs.getPersonalData(1).getMealToggle()==1 && userLogs.getPersonalData(1).getWorkoutToggle()==1){//Both on
+        SharedPreferences prefs = c.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
+        mealToggle = prefs.getInt("MealToggle", -1);
+        workoutToggle = prefs.getInt("WorkoutToggle", -1);
+
+        double recommendedSleep = 8.0;
+        if(sleepLogs.size() >= 1){
+            sleepToday = getTimeSlept(1);
+        }
+        if(sleepLogs.size() >= 2){
+            sleepYesterday = getTimeSlept(2);
+        }
+
+
+        if(mealToggle==1 && workoutToggle==1){//Both on
 
         }
-        else if(userLogs.getPersonalData(1).getMealToggle()==0 && userLogs.getPersonalData(1).getWorkoutToggle()==1){//Meal off, Workout on
+        else if(mealToggle==0 && workoutToggle==1){//Meal off, Workout on
+
+            recommendedSleep = onlySleepRecommendation();
+            int activeMinsToday = mainControl.getActiveMinsToday();
+
+            if(activeMinsToday >= 60){
+                recommendedSleep = recommendedSleep + 1.2;
+            }
+            if(activeMinsToday > 30 && activeMinsToday < 60){
+                recommendedSleep = recommendedSleep + 0.02*activeMinsToday;
+            }
+
+
 
         }
-        else if(userLogs.getPersonalData(1).getMealToggle()==1 && userLogs.getPersonalData(1).getWorkoutToggle()==0){//Meal on, Workout off
+        else if(mealToggle==1 && workoutToggle==0){//Meal on, Workout off
 
         }
         else{ //both Meal and Workout subsystems are off
 
+            recommendedSleep = onlySleepRecommendation();
+
         }
+
+        return recommendedSleep;
+
+    }
+
+    protected double onlySleepRecommendation(){
+        double recommendedSleep;
+
+        if(sleepToday < 8.0 && sleepYesterday < 8.0){
+            recommendedSleep = (8.0-sleepToday)*0.4 + (8.0-sleepYesterday)*0.2 + 8.0;
+        }
+        else if(sleepToday < 8.0){
+            recommendedSleep = (8.0-sleepToday)*0.5 + 8.0;
+        }
+        else{
+            recommendedSleep = 8.0;
+        }
+
+        return recommendedSleep;
 
     }
 
@@ -71,11 +124,11 @@ public class SleepController {
      *
      * @return Amount of time user slept
      */
-    public double getTimeSlept(){
+    public double getTimeSlept(int daysAgo){
 
         sleepLogs = userLogs.getAllSleepLogs();
-        String sleepTime =  sleepLogs.get(sleepLogs.size()-1).getWakeTime();
-        String wakeTime  =  sleepLogs.get(sleepLogs.size()-1).getSleepTime();
+        String sleepTime =  sleepLogs.get(sleepLogs.size()-daysAgo).getWakeTime();
+        String wakeTime  =  sleepLogs.get(sleepLogs.size()-daysAgo).getSleepTime();
 
         int sleepTimeHours = Integer.parseInt(sleepTime.substring(0,2));
         int sleepTimeMinutes = Integer.parseInt(sleepTime.substring(3));

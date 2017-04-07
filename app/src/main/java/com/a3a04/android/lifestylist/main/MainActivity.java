@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a3a04.android.lifestylist.R;
@@ -19,6 +20,8 @@ import com.a3a04.android.lifestylist.database.PersonalData;
 import com.a3a04.android.lifestylist.meal.MealActivity;
 import com.a3a04.android.lifestylist.sleep.SleepActivity;
 import com.a3a04.android.lifestylist.workout.WorkoutActivity;
+
+import java.util.List;
 
 
 // Home Screen
@@ -76,10 +79,14 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt("MealToggle", 1);
             editor.putInt("WorkoutToggle", 1);
             editor.commit();
+            DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+            db.addData(new PersonalData());
+            db.close();
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
             finish();
         } else {
+
             mealToggle = prefs.getInt("MealToggle", -1);
             sleepToggle = prefs.getInt("SleepToggle", -1);
             workoutToggle = prefs.getInt("WorkoutToggle", -1);
@@ -123,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 mWorkoutBtn.setEnabled(true);
                 mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
             }
+            updateTextView();
 
         }
 
@@ -130,6 +138,26 @@ public class MainActivity extends AppCompatActivity {
 
 
        // db.closeDB();
+    }
+
+    public void updateTextView(){
+        TextView t = (TextView)findViewById(R.id.workoutSummary);
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+        t.setText("");
+
+        PersonalData user = db.getPersonalData(1);
+
+        t.append("Name: " + user.getName() + "\n");
+        t.append("Age: " + user.getAge() + "\n");
+        t.append("Gender: " + user.getGender() + "\n");
+        t.append("Height: " + user.getHeight() + "\n");
+        t.append("Weight: " + user.getWeight() + "\n");
+
+
+
+
+        db.closeDB();
     }
 
     public void openMeal(View view){

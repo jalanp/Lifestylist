@@ -81,4 +81,24 @@ public class MainController {
 
     }
 
+    public double getTimeSlept(int daysAgo){
+        return sleepControl.getTimeSlept(daysAgo);
+    }
+
+    public int getActiveMinsToday(){
+        return workoutControl.getDailyActiveMinutesData();
+    }
+
+    public int getActiveMinsYesterday(){
+        return workoutControl.getYesterdaysActiveMinutesData();
+    }
+
+    public int getCaloriesToday(){
+        return mealControl.getDailyCalorieData();
+    }
+
+    public int getCaloriesYesterday(){
+        return mealControl.getYesterdaysCalorieData();
+    }
+
 }

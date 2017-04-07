@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
-            android:text="Value1"
+            android:text="Name  "
             />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_alignStart="@+id/val1"
             android:layout_below="@+id/val1"
             android:layout_marginTop="16dp"
-            android:text="Value2" />
+            android:text="Gender" />
 
         <TextView
             android:id="@+id/val3"
@@ -38,7 +38,7 @@
             android:layout_alignStart="@+id/val2"
             android:layout_marginTop="16dp"
             android:layout_below="@id/val2"
-            android:text="Value3" />
+            android:text="Age   " />
 
         <TextView
             android:id="@+id/val4"
@@ -48,7 +48,7 @@
             android:layout_alignStart="@+id/val3"
             android:layout_marginTop="16dp"
             android:layout_below="@+id/val3"
-            android:text="Value4" />
+            android:text="Height" />
 
         <TextView
             android:id="@+id/val5"
@@ -57,7 +57,7 @@
             android:layout_alignLeft="@+id/val4"
             android:layout_alignStart="@+id/val4"
             android:layout_marginTop="16dp"
-            android:text="Value5"
+            android:text="Weight"
             android:layout_below="@id/val4"/>
 
 
@@ -126,7 +126,8 @@
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
         android:textColor="@color/colorWhite"
-        android:onClick="LogSettings"
+        android:onClick="logSettings"
+
         />
 
     <Switch
@@ -178,7 +179,6 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="36dp"
         android:checked="true"
-
         android:text="ToggleButton"
         android:onClick="mealToggleChecker"/>
 

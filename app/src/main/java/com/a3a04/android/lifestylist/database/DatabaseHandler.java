@@ -403,10 +403,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_WEIGHT, data.getWeight());
         values.put(KEY_INTEGRATION, data.getIntegration());
         values.put(KEY_GENDER, data.getGender());
-        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
         values.put(KEY_MEAL_TOGGLE, data.getMealToggle());
         values.put(KEY_WORKOUT_TOGGLE, data.getWorkoutToggle());
         values.put(KEY_SLEEP_TOGGLE, data.getSleepToggle());
+        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
 
         // updating row
         return db.update(TABLE_USER_PERSONAL, values, KEY_ID + " = ?",

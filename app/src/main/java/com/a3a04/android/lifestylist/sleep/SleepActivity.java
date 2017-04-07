@@ -200,9 +200,8 @@ public class SleepActivity extends AppCompatActivity {
                 + stuff.get(stuff.size()-1).getSleepTime());
         t.append("\n");
 
-        t.append("\n" + "YOOOOOO");
         t.append("\n");
-        t.append("Time Slept: " + sleepControl.getTimeSlept());
+        t.append("Time Slept: " + sleepControl.getTimeSlept(1));
         db.closeDB();
     }
 

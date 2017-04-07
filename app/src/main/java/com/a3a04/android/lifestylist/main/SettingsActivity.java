@@ -10,10 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
+
+import com.a3a04.android.lifestylist.database.PersonalData;
+import com.a3a04.android.lifestylist.database.WorkoutLog;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -23,10 +32,13 @@ public class SettingsActivity extends AppCompatActivity {
     SeekBar Fitbit;
     DatabaseHandler db;
 
+
     public static final String MY_PREFS_NAME = "SharedPref";
     int mealToggle;
     int sleepToggle;
     int workoutToggle;
+
+
 
 
     @Override
@@ -76,8 +88,77 @@ public class SettingsActivity extends AppCompatActivity {
             workout.setChecked(true);
         }
 
+        EditText t1 = (EditText)findViewById(R.id.input1);
+        EditText t2 = (EditText)findViewById(R.id.input2);
+        EditText t3 = (EditText)findViewById(R.id.input3);
+        EditText t4 = (EditText)findViewById(R.id.input4);
+        EditText t5 = (EditText)findViewById(R.id.input5);
+
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+        PersonalData user;
+        user = db.getPersonalData(1);
+
+
+
+        t1.setText(user.getName());
+        if(user.getGender() == 0){
+            t2.setText("M");
+        }
+        else if(user.getGender() == 1){
+            t2.setText("F");
+        }
+        t3.setText(Integer.toString(user.getAge()));
+        t4.setText(Integer.toString(user.getHeight()));
+        t5.setText(Integer.toString(user.getWeight()));
+
+        db.close();
+
 
     }
+
+    public void logSettings(View view){
+        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+
+        String name;
+        int gender = 0; // M=0, F=1
+        int age;
+        int height;
+        int weight;
+
+
+
+
+        EditText t1 = (EditText)findViewById(R.id.input1);
+        name = t1.getText().toString();
+
+        EditText t2 = (EditText)findViewById(R.id.input2);
+        if(t2.getText().toString().equalsIgnoreCase("M")){
+            gender = 0;
+        }
+        else if(t2.getText().toString().equalsIgnoreCase("F")){
+            gender = 1;
+        }
+
+        EditText t3 = (EditText)findViewById(R.id.input3);
+        age = Integer.parseInt(t3.getText().toString());
+
+        EditText t4 = (EditText)findViewById(R.id.input4);
+        height = Integer.parseInt(t4.getText().toString());
+
+        EditText t5 = (EditText)findViewById(R.id.input5);
+        weight = Integer.parseInt(t5.getText().toString());
+
+        db.updateData(new PersonalData(1, name, "default", age, height, weight, 0, gender, 0, 0, 0, 0));
+
+
+        db.closeDB();
+
+        Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -96,11 +177,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public void LogSettings(View view){
-        Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
-        startActivity(intent);
-        finish();
-    }
+
 
     public void mealToggleChecker(View view){
         if ((!sleep.isChecked()) & (!workout.isChecked())){
