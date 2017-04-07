@@ -32,11 +32,22 @@ public class WorkoutActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
     Button mGymBtn;
+    WorkoutController workoutControl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
+
+        renderLayout();
+
+        workoutControl = new WorkoutController(getApplicationContext());
+
+
+    }
+
+    public void renderLayout(){
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Workout");
@@ -115,6 +126,11 @@ public class WorkoutActivity extends AppCompatActivity {
                     + stuff.get(i).getActiveMins());
             t.append("\n");
         }
+
+        t.append("\n");
+        t.append("Active Minutes Today:      " + workoutControl.getDailyActiveMinutesData());
+        t.append("\n");
+        t.append("Active Minutes Yesterday:  " + workoutControl.getYesterdaysActiveMinutesData());
 
         db.closeDB();
     }

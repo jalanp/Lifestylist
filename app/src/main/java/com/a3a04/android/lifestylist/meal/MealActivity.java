@@ -30,11 +30,21 @@ public class MealActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
     Button mFindFood;
+    MealController mealControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
+
+        renderLayout();
+
+        mealControl = new MealController(getApplicationContext());
+
+    }
+
+
+    protected void renderLayout(){
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Meal");
@@ -64,17 +74,28 @@ public class MealActivity extends AppCompatActivity {
                     + stuff.get(i).getTime() + "\t\t"
                     + stuff.get(i).getCalories());
             t.append("\n");
+
         }
 
         db.closeDB();
     }
+
+
+
+
+
+
+
+
+
+
 
     public void addItem(View view){
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("kk:mm:ss");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         String time = (timeFormat.format(c.getTime()));
@@ -105,15 +126,22 @@ public class MealActivity extends AppCompatActivity {
 
         t.setText("");
 
+
         List<MealLog> stuff = db.getAllMealLogs();
         for (int i = 0; i < stuff.size(); i++){
             t.append(stuff.get(i).getID() + "\t\t"
                     + stuff.get(i).getDate() + "\t\t"
                     + stuff.get(i).getTime() + "\t\t"
                     + stuff.get(i).getCalories());
+
             t.append("\n");
         }
 
+
+        t.append("\n");
+        t.append("Calorie Intake Today:      " + mealControl.getDailyCalorieData());
+        t.append("\n");
+        t.append("Calorie Intake Yesterday:  " + mealControl.getYesterdaysCalorieData());
         db.closeDB();
     }
 
