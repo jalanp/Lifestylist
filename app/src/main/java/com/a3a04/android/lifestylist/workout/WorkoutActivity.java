@@ -66,7 +66,7 @@ public class WorkoutActivity extends AppCompatActivity {
         mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
         mSleepBtn.setTextColor(getResources().getColor(R.color.colorBlack));
 
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.workoutLog);
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
@@ -82,7 +82,7 @@ public class WorkoutActivity extends AppCompatActivity {
         db.closeDB();
     }
 
-    public void addItem(View view){
+    public void logActiveMinutes(View view){
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         Calendar c = Calendar.getInstance();
@@ -98,12 +98,9 @@ public class WorkoutActivity extends AppCompatActivity {
 
         int x = 0;
 
-        try {
-            EditText t = (EditText)findViewById(R.id.editText);
-            x = Integer.parseInt(t.getText().toString());
-        } catch(NumberFormatException e){
-            Log.v("error","not number");
-        }
+
+        EditText t = (EditText)findViewById(R.id.activeMinutes);
+        x = Integer.parseInt(t.getText().toString());
 
         db.addLog(new WorkoutLog(date, time, x));
 
@@ -113,7 +110,7 @@ public class WorkoutActivity extends AppCompatActivity {
     }
 
     public void updateTextView(){
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.workoutLog);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         t.setText("");
@@ -135,18 +132,19 @@ public class WorkoutActivity extends AppCompatActivity {
         db.closeDB();
     }
 
-    public void removeItem(View view){
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-
-        List<WorkoutLog> stuff = db.getAllWorkoutLogs();
-        if (stuff.size() > 0) {
-            db.deleteWorkoutLog(stuff.get(stuff.size() - 1).getID());
-        }
-
-        db.closeDB();
-
-        this.updateTextView();
-    }
+    //DEPRECATED
+//    public void removeItem(View view){
+//        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+//
+//        List<WorkoutLog> stuff = db.getAllWorkoutLogs();
+//        if (stuff.size() > 0) {
+//            db.deleteWorkoutLog(stuff.get(stuff.size() - 1).getID());
+//        }
+//
+//        db.closeDB();
+//
+//        this.updateTextView();
+//    }
 
     public void openMeal(View view){
         Intent intent = new Intent(WorkoutActivity.this, MealActivity.class);

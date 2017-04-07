@@ -63,7 +63,7 @@ public class MealActivity extends AppCompatActivity {
 
         mFindFood = (Button) findViewById(R.id.findFood);
 
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.mealLog);
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
@@ -90,7 +90,7 @@ public class MealActivity extends AppCompatActivity {
 
 
 
-    public void addItem(View view){
+    public void logCalories(View view){
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         Calendar c = Calendar.getInstance();
@@ -106,13 +106,9 @@ public class MealActivity extends AppCompatActivity {
 
         int x = 0;
 
-        try {
-            EditText t = (EditText)findViewById(R.id.editText);
-            x = Integer.parseInt(t.getText().toString());
-        } catch(NumberFormatException e){
-            Log.v("error","not number");
-        }
 
+        EditText t = (EditText)findViewById(R.id.calories);
+        x = Integer.parseInt(t.getText().toString());
         db.addLog(new MealLog(date, time, x));
 
         db.closeDB();
@@ -121,7 +117,7 @@ public class MealActivity extends AppCompatActivity {
     }
 
     public void updateTextView(){
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.mealLog);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         t.setText("");
@@ -145,18 +141,19 @@ public class MealActivity extends AppCompatActivity {
         db.closeDB();
     }
 
-    public void removeItem(View view){
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-
-        List<MealLog> stuff = db.getAllMealLogs();
-        if (stuff.size() > 0) {
-            db.deleteMealLog(stuff.get(stuff.size() - 1).getID());
-        }
-
-        db.closeDB();
-
-        this.updateTextView();
-    }
+    //deprecated
+//    public void removeItem(View view){
+//        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+//
+//        List<MealLog> stuff = db.getAllMealLogs();
+//        if (stuff.size() > 0) {
+//            db.deleteMealLog(stuff.get(stuff.size() - 1).getID());
+//        }
+//
+//        db.closeDB();
+//
+//        this.updateTextView();
+//    }
 
     public void openMeal(View view){
         Intent intent = new Intent(MealActivity.this, MealActivity.class);

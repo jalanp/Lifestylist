@@ -28,10 +28,10 @@
             android:text="Log"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_alignTop="@+id/sleepTime"
+            android:layout_marginTop="42dp"
             android:layout_toRightOf="@+id/sleepTime"
-            android:layout_toEndOf="@+id/sleepTime"
-            android:layout_above="@+id/wakeTime" />
+            android:onClick="logSleepTimes"
+             />
         <EditText
             android:id="@+id/wakeTime"
             android:layout_width="wrap_content"
@@ -41,15 +41,7 @@
             android:layout_below="@+id/sleepTime"
             android:layout_toLeftOf="@+id/logSleepButton"
             android:layout_toStartOf="@+id/logSleepButton" />
-        <Button
-            android:id="@+id/logWakeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Log"
-            android:layout_below="@+id/logSleepButton"
-            android:layout_alignLeft="@+id/logSleepButton"
-            android:layout_alignStart="@+id/logSleepButton"
-            android:layout_alignBottom="@+id/wakeTime" />
+
         <TextView
             android:id="@+id/sleepLog"
             android:layout_width="wrap_content"

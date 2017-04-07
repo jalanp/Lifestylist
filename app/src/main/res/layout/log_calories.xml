@@ -29,6 +29,7 @@
             android:layout_alignBottom="@+id/calories"
             android:layout_toRightOf="@+id/calories"
             android:layout_marginLeft="16dp"
+            android:onClick="logCalories"
             />
         <TextView
             android:id="@+id/mealLog"

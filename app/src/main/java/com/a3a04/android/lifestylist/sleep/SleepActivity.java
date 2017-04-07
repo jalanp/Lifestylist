@@ -29,11 +29,23 @@ public class SleepActivity extends AppCompatActivity {
 
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
+    SleepController sleepControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
+
+
+        renderLayout();
+
+        sleepControl = new SleepController(getApplicationContext());
+
+
+
+    }
+
+    protected void renderLayout(){
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Sleep");
@@ -50,31 +62,34 @@ public class SleepActivity extends AppCompatActivity {
         mWorkoutBtn.setTextColor(getResources().getColor(R.color.colorBlack));
         mSleepBtn.setTextColor(getResources().getColor(R.color.colorPrimary));
 
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.sleepLog);
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         List<SleepLog> stuff = db.getAllSleepLogs();
-        for (int i = 0; i < stuff.size(); i++){
-            t.append(stuff.get(i).getID() + "\t\t"
-                    + stuff.get(i).getDate() + "\t\t"
-                    + stuff.get(i).getWakeTime() + "\t\t"
-                    + stuff.get(i).getSleepTime());
-            t.append("\n");
-        }
+//        for (int i = 0; i < stuff.size(); i++){
+//            t.append(stuff.get(i).getID() + "\t\t"
+//                    + stuff.get(i).getDate() + "\t\t"
+//                    + stuff.get(i).getWakeTime() + "\t\t"
+//                    + stuff.get(i).getSleepTime());
+//            t.append("\n");
+//        }
+
+
 
         db.closeDB();
+
     }
 
-    public void addItem(View view){
+    public void logSleepTimes(View view){
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         Calendar c = Calendar.getInstance();
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+        //SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        String time = (timeFormat.format(c.getTime()));
+        //String time = (timeFormat.format(c.getTime()));
         String date = (dateFormat.format(c.getTime()));
 
         //String date = c.get(Calendar.YEAR) + "/" + c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH);
@@ -89,9 +104,14 @@ public class SleepActivity extends AppCompatActivity {
             Log.v("error","not number");
         }*/
 
-        EditText t = (EditText)findViewById(R.id.editText);
-        String wakeTime = t.getText().toString();
-        db.addLog(new SleepLog(date, time, wakeTime));
+
+
+        EditText t1 = (EditText)findViewById(R.id.sleepTime);
+        String sleepTime = t1.getText().toString();
+
+        EditText t2 = (EditText)findViewById(R.id.wakeTime);
+        String wakeTime = t2.getText().toString();
+        db.addLog(new SleepLog(date, sleepTime, wakeTime));
 
         db.closeDB();
 
@@ -99,35 +119,44 @@ public class SleepActivity extends AppCompatActivity {
     }
 
     public void updateTextView(){
-        TextView t = (TextView)findViewById(R.id.textView);
+        TextView t = (TextView)findViewById(R.id.sleepLog);
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
         t.setText("");
 
         List<SleepLog> stuff = db.getAllSleepLogs();
-        for (int i = 0; i < stuff.size(); i++){
-            t.append(stuff.get(i).getID() + "\t\t"
-                    + stuff.get(i).getDate() + "\t\t"
-                    + stuff.get(i).getWakeTime() + "\t\t"
-                    + stuff.get(i).getSleepTime());
-            t.append("\n");
-        }
+//        for (int i = 0; i < stuff.size(); i++){
+//            t.append(stuff.get(i).getID() + "\t\t"
+//                    + stuff.get(i).getDate() + "\t\t"
+//                    + stuff.get(i).getWakeTime() + "\t\t"
+//                    + stuff.get(i).getSleepTime());
+//            t.append("\n");
+//        }
+        t.append(stuff.get(stuff.size()-1).getID() + "\t\t"
+                + stuff.get(stuff.size()-1).getDate() + "\t\t"
+                + stuff.get(stuff.size()-1).getWakeTime() + "\t\t"
+                + stuff.get(stuff.size()-1).getSleepTime());
+        t.append("\n");
 
+        t.append("\n" + "YOOOOOO");
+        t.append("\n");
+        t.append("Time Slept: " + sleepControl.getTimeSlept());
         db.closeDB();
     }
 
-    public void removeItem(View view){
-        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-
-        List<SleepLog> stuff = db.getAllSleepLogs();
-        if (stuff.size() > 0) {
-            db.deleteSleepLog(stuff.get(stuff.size() - 1).getID());
-        }
-
-        db.closeDB();
-
-        this.updateTextView();
-    }
+    //DEPRECATED
+//    public void removeItem(View view){
+//        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+//
+//        List<SleepLog> stuff = db.getAllSleepLogs();
+//        if (stuff.size() > 0) {
+//            db.deleteSleepLog(stuff.get(stuff.size() - 1).getID());
+//        }
+//
+//        db.closeDB();
+//
+//        this.updateTextView();
+//    }
 
     public void openMeal(View view){
         Intent intent = new Intent(SleepActivity.this, MealActivity.class);

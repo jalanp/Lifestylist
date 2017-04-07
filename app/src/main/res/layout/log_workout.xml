@@ -29,7 +29,8 @@
             android:layout_marginStart="22dp"
             android:layout_alignBottom="@+id/activeMinutes"
             android:layout_toRightOf="@+id/activeMinutes"
-            android:layout_toEndOf="@+id/activeMinutes" />
+            android:layout_toEndOf="@+id/activeMinutes"
+            android:onClick="logActiveMinutes" />
 
         <TextView
             android:id="@+id/workoutLog"

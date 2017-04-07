@@ -1,6 +1,7 @@
 package com.a3a04.android.lifestylist.sleep;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.MealLog;
@@ -73,8 +74,8 @@ public class SleepController {
     public double getTimeSlept(){
 
         sleepLogs = userLogs.getAllSleepLogs();
-        String sleepTime =  sleepLogs.get(sleepLogs.size()-1).getSleepTime();
-        String wakeTime  =  sleepLogs.get(sleepLogs.size()-1).getWakeTime();
+        String sleepTime =  sleepLogs.get(sleepLogs.size()-1).getWakeTime();
+        String wakeTime  =  sleepLogs.get(sleepLogs.size()-1).getSleepTime();
 
         int sleepTimeHours = Integer.parseInt(sleepTime.substring(0,2));
         int sleepTimeMinutes = Integer.parseInt(sleepTime.substring(3));
@@ -86,7 +87,10 @@ public class SleepController {
 
         double timeSlept;
 
-        if(sleepTimeValue < wakeTimeValue){
+//        Log.d("sleepT", Double.toString(sleepTimeValue));
+//        Log.d("wakeT", Double.toString(wakeTimeValue));
+
+        if(sleepTimeValue > wakeTimeValue){
             timeSlept = (24-sleepTimeValue) + wakeTimeValue;
         }
         else{
