@@ -21,7 +21,7 @@ public class PersonalData {
 
 
     public PersonalData(){
-        this.id = 0;
+        //this.id = 0;
         this.name = "";
         this.address = "";
         this.age = 0;
@@ -30,6 +30,9 @@ public class PersonalData {
         this.integration = 0;
         this.gender = 0;
         this.firstLogin = 0;
+        this.mealToggle = 1;
+        this.workoutToggle = 1;
+        this.sleepToggle = 1;
     }
 
     public PersonalData(String name, String address, int age, int height, int weight, int integration, int gender,

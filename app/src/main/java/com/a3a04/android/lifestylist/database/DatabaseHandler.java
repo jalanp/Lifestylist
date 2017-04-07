@@ -14,7 +14,7 @@ import java.util.*;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 7;
     private static final String DATABASE_NAME = "dataManager";
     private static final String TABLE_USER_MEAL = "userMeal";
     private static final String TABLE_USER_WORKOUT = "userWorkout";
@@ -167,10 +167,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_WEIGHT, data.getWeight());
         values.put(KEY_INTEGRATION, data.getIntegration());
         values.put(KEY_GENDER, data.getGender());
-        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
         values.put(KEY_MEAL_TOGGLE, data.getMealToggle());
         values.put(KEY_WORKOUT_TOGGLE, data.getWorkoutToggle());
         values.put(KEY_SLEEP_TOGGLE, data.getSleepToggle());
+        values.put(KEY_FIRST_LOGIN, data.getFirstLogin());
 
 
         db.insert(TABLE_USER_PERSONAL, null, values);
@@ -247,7 +247,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_USER_PERSONAL, new String[] { KEY_ID,
                         KEY_NAME, KEY_ADDRESS, KEY_AGE, KEY_HEIGHT,
-                        KEY_WEIGHT, KEY_INTEGRATION, KEY_GENDER,
+                        KEY_WEIGHT, KEY_INTEGRATION, KEY_GENDER, KEY_MEAL_TOGGLE, KEY_WORKOUT_TOGGLE, KEY_SLEEP_TOGGLE,
                         KEY_FIRST_LOGIN}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
