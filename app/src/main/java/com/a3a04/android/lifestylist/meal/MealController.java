@@ -94,7 +94,7 @@ public class MealController {
 
     }
 
-    protected void generateRecommendation(){
+    public String[] generateRecommendation(){
 
         updateRecommendation();
 
@@ -156,6 +156,8 @@ public class MealController {
         else{ //both Workout and Sleep subsystems are off
             recommendation = recommendMeal(getCurrentCalories());
         }
+
+        return recommendation;
     }
 
     protected int getCurrentCalories(){

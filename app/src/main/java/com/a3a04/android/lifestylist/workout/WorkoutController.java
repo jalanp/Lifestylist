@@ -53,7 +53,36 @@ public class WorkoutController {
         actMinYesterday = getYesterdaysActiveMinutesData();
 
         if(mealToggle==1 && sleepToggle==1){//Both on
+            int excessCalories = 100;
+            double weight = 150/2.2;
 
+            recommendedActiveMins = onlyWorkoutActiveMins();
+
+            int extraMealMins = Double.valueOf(excessCalories / (8 * 0.0175 * weight)).intValue();
+
+            double totalSleepTime = mainControl.getTimeSlept(1);
+            int extraSleepMins = 0;
+
+            if (totalSleepTime > 4.0 && totalSleepTime < 8.0){
+
+                extraSleepMins = (int) ((8.0 - totalSleepTime)*0.125*recommendedActiveMins);
+
+            }
+            else if (totalSleepTime < 4.0){
+
+                extraSleepMins = 0;
+
+            }
+            else if(totalSleepTime > 8.0){
+
+                if(totalSleepTime <= 12.0){
+                    extraSleepMins = (int) ((totalSleepTime-8.0)*(30/4));
+                }
+                else{
+                    extraSleepMins = 30;
+                }
+            }
+            recommendedActiveMins = recommendedActiveMins + ((extraMealMins + extraSleepMins) / 2);
         }
         else if(mealToggle==0 && sleepToggle==1){//Meal off, Sleep on
 
@@ -79,21 +108,18 @@ public class WorkoutController {
                     recommendedActiveMins = recommendedActiveMins + 30;
                 }
             }
-            return recommendedActiveMins;
-
         }
         else if(mealToggle==1 && sleepToggle==0){//Meal on, Sleep off
+            int excessCalories = 100;
+            double weight = 150/2.2;
 
+            int extraMins = Double.valueOf(excessCalories / (8 * 0.0175 * weight)).intValue();
+            recommendedActiveMins = onlyWorkoutActiveMins() + extraMins;
         }
         else{ //both Meal and Sleep subsystems are off
-
-
             recommendedActiveMins = onlyWorkoutActiveMins();
-
         }
-
         return recommendedActiveMins;
-
     }
 
 

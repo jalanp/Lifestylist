@@ -56,10 +56,24 @@ public class SleepController {
 
 
         if(mealToggle==1 && workoutToggle==1){//Both on
+            int excessCalories = 100;
+            int weight = 150;
+            recommendedSleep = onlySleepRecommendation();
 
+            double workoutExtraSleep = 0;
+
+            int activeMinsToday = mainControl.getActiveMinsToday();
+            if(activeMinsToday >= 60){
+                workoutExtraSleep = 1.2;
+            }
+            if(activeMinsToday > 30 && activeMinsToday < 60){
+                workoutExtraSleep = 0.02*activeMinsToday;
+            }
+
+            double mealExtraSleep = Integer.valueOf(excessCalories).doubleValue() / 0.42 / weight;
+            recommendedSleep = recommendedSleep + ((mealExtraSleep + workoutExtraSleep)/2);
         }
         else if(mealToggle==0 && workoutToggle==1){//Meal off, Workout on
-
             recommendedSleep = onlySleepRecommendation();
             int activeMinsToday = mainControl.getActiveMinsToday();
 
@@ -69,17 +83,16 @@ public class SleepController {
             if(activeMinsToday > 30 && activeMinsToday < 60){
                 recommendedSleep = recommendedSleep + 0.02*activeMinsToday;
             }
-
-
-
         }
         else if(mealToggle==1 && workoutToggle==0){//Meal on, Workout off
+            int excessCalories = 100;
+            int weight = 150;
 
+            double extraSleep = Integer.valueOf(excessCalories).doubleValue() / 0.42 / weight;
+            recommendedSleep = onlySleepRecommendation() + extraSleep;
         }
         else{ //both Meal and Workout subsystems are off
-
             recommendedSleep = onlySleepRecommendation();
-
         }
 
         return recommendedSleep;
