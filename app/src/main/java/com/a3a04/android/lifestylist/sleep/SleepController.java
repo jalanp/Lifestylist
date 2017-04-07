@@ -19,7 +19,7 @@ import java.util.List;
 public class SleepController {
 
     DatabaseHandler userLogs;
-    MainController mainControl = new MainController();
+    MainController mainControl;
     List<MealLog> mealLogs;
     List<WorkoutLog> workoutLogs;
     List<SleepLog> sleepLogs;
@@ -38,13 +38,16 @@ public class SleepController {
         c = context;
     }
 
-    protected double generateRecommendation(){
+    public double generateRecommendation(){
 
-        updateRecommendation();
+        //updateRecommendation();
+        mainControl = new MainController(c);
 
         SharedPreferences prefs = c.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
         mealToggle = prefs.getInt("MealToggle", -1);
         workoutToggle = prefs.getInt("WorkoutToggle", -1);
+
+        sleepLogs = getAllUserSleepData();
 
         double recommendedSleep = 8.0;
         if(sleepLogs.size() >= 1){
@@ -57,7 +60,7 @@ public class SleepController {
 
         if(mealToggle==1 && workoutToggle==1){//Both on
             int excessCalories = 100;
-            int weight = 150;
+            int weight = mainControl.getWeight();
             recommendedSleep = onlySleepRecommendation();
 
             double workoutExtraSleep = 0;
@@ -86,7 +89,7 @@ public class SleepController {
         }
         else if(mealToggle==1 && workoutToggle==0){//Meal on, Workout off
             int excessCalories = 100;
-            int weight = 150;
+            int weight = mainControl.getWeight();
 
             double extraSleep = Integer.valueOf(excessCalories).doubleValue() / 0.42 / weight;
             recommendedSleep = onlySleepRecommendation() + extraSleep;
@@ -118,8 +121,8 @@ public class SleepController {
 
     protected void updateRecommendation(){
 
-        mealLogs = mainControl.getMealData();
-        workoutLogs = mainControl.getWorkoutData();
+        //mealLogs = mainControl.getMealData();
+        //workoutLogs = mainControl.getWorkoutData();
 
     }
 

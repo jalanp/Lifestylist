@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.SleepLog;
+import com.a3a04.android.lifestylist.main.MainController;
 import com.a3a04.android.lifestylist.main.SettingsActivity;
 import com.a3a04.android.lifestylist.meal.MealActivity;
 import com.a3a04.android.lifestylist.workout.WorkoutActivity;
@@ -30,6 +31,7 @@ public class SleepActivity extends AppCompatActivity {
 
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
+    MainController mainControl;
     SleepController sleepControl;
     public static final String MY_PREFS_NAME = "SharedPref";
     int mealToggle;
@@ -42,12 +44,9 @@ public class SleepActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sleep);
 
-
-        renderLayout();
-
         sleepControl = new SleepController(getApplicationContext());
-
-
+        mainControl = new MainController(getApplicationContext());
+        renderLayout();
 
     }
 
@@ -72,7 +71,7 @@ public class SleepActivity extends AppCompatActivity {
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
-        List<SleepLog> stuff = db.getAllSleepLogs();
+//        List<SleepLog> stuff = db.getAllSleepLogs();
 //        for (int i = 0; i < stuff.size(); i++){
 //            t.append(stuff.get(i).getID() + "\t\t"
 //                    + stuff.get(i).getDate() + "\t\t"
@@ -82,6 +81,11 @@ public class SleepActivity extends AppCompatActivity {
 //        }
 
 
+//        double sleepRec = mainControl.getRecommendedSleepTime();
+//        t.append("\n");
+//        t.append("Recommended Sleep Time: " + sleepRec);
+//        t.append("\n");
+//        t.append("Time Slept: " + sleepControl.getTimeSlept(1));
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         int restoredText = prefs.getInt("FirstTime", -1);
@@ -140,7 +144,11 @@ public class SleepActivity extends AppCompatActivity {
         }
 
         db.closeDB();
+        try {
+            this.updateTextView();
+        }catch(Exception e){
 
+        }
     }
 
     public void logSleepTimes(View view){
@@ -178,6 +186,8 @@ public class SleepActivity extends AppCompatActivity {
         db.closeDB();
 
         this.updateTextView();
+        mainControl.updateRecommendationRequest(3);
+
     }
 
     public void updateTextView(){
@@ -187,19 +197,22 @@ public class SleepActivity extends AppCompatActivity {
         t.setText("");
 
         List<SleepLog> stuff = db.getAllSleepLogs();
-//        for (int i = 0; i < stuff.size(); i++){
-//            t.append(stuff.get(i).getID() + "\t\t"
-//                    + stuff.get(i).getDate() + "\t\t"
-//                    + stuff.get(i).getWakeTime() + "\t\t"
-//                    + stuff.get(i).getSleepTime());
-//            t.append("\n");
-//        }
-        t.append(stuff.get(stuff.size()-1).getID() + "\t\t"
-                + stuff.get(stuff.size()-1).getDate() + "\t\t"
-                + stuff.get(stuff.size()-1).getWakeTime() + "\t\t"
-                + stuff.get(stuff.size()-1).getSleepTime());
-        t.append("\n");
+        for (int i = 0; i < stuff.size(); i++){
+            t.append(stuff.get(i).getID() + "\t\t"
+                    + stuff.get(i).getDate() + "\t\t"
+                    + stuff.get(i).getWakeTime() + "\t\t"
+                    + stuff.get(i).getSleepTime());
+            t.append("\n");
+        }
+//        t.append(stuff.get(stuff.size()-1).getID() + "\t\t"
+//                + stuff.get(stuff.size()-1).getDate() + "\t\t"
+//                + stuff.get(stuff.size()-1).getWakeTime() + "\t\t"
+//                + stuff.get(stuff.size()-1).getSleepTime());
+//        t.append("\n");
 
+        double sleepRec = mainControl.getRecommendedSleepTime();
+        t.append("\n");
+        t.append("Recommended Sleep Time: " + sleepRec);
         t.append("\n");
         t.append("Time Slept: " + sleepControl.getTimeSlept(1));
         db.closeDB();

@@ -21,7 +21,7 @@ import java.util.List;
 public class WorkoutController {
 
     DatabaseHandler userLogs;
-    MainController mainControl = new MainController();
+    MainController mainControl;
     List<MealLog> mealLogs;
     List<SleepLog> sleepLogs;
     int actMinToday;
@@ -32,7 +32,7 @@ public class WorkoutController {
     //SleepController sleepControl = new SleepController();
 
 
-    protected WorkoutController(){
+    public WorkoutController(){
         super();
     }
 
@@ -41,9 +41,11 @@ public class WorkoutController {
         c = context;
     }
 
-    protected int generateRecommendation(){
+    public int generateRecommendation(){
 
-        updateRecommendation();
+        mainControl = new MainController(c);
+
+        //updateRecommendation();
         SharedPreferences prefs = c.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
         mealToggle = prefs.getInt("MealToggle", -1);
         sleepToggle = prefs.getInt("SleepToggle", -1);
@@ -54,7 +56,7 @@ public class WorkoutController {
 
         if(mealToggle==1 && sleepToggle==1){//Both on
             int excessCalories = 100;
-            double weight = 150/2.2;
+            double weight = mainControl.getWeight()/2.2;
 
             recommendedActiveMins = onlyWorkoutActiveMins();
 
@@ -111,7 +113,7 @@ public class WorkoutController {
         }
         else if(mealToggle==1 && sleepToggle==0){//Meal on, Sleep off
             int excessCalories = 100;
-            double weight = 150/2.2;
+            double weight = mainControl.getWeight()/2.2;
 
             int extraMins = Double.valueOf(excessCalories / (8 * 0.0175 * weight)).intValue();
             recommendedActiveMins = onlyWorkoutActiveMins() + extraMins;
@@ -143,8 +145,8 @@ public class WorkoutController {
 
     protected void updateRecommendation(){
 
-        mealLogs = mainControl.getMealData();
-        sleepLogs = mainControl.getSleepData();
+        //mealLogs = mainControl.getMealData();
+        //sleepLogs = mainControl.getSleepData();
 
     }
 
@@ -208,16 +210,24 @@ public class WorkoutController {
 
         int activeMinutes = 0;
         List<WorkoutLog> workoutLogsList = getAllUserWorkoutData();
+        boolean entryYesterday = false;
 
         for (int index = 0; index < workoutLogsList.size(); index++) {
 
             if(workoutLogsList.get(index).getDate().substring(0, 2).equalsIgnoreCase(yesterdayString)){
                 activeMinutes += workoutLogsList.get(index).getActiveMins();
+                entryYesterday = true;
             }
 
         }
 
-        return activeMinutes;
+        if(entryYesterday){
+            return activeMinutes;
+        }
+        else{
+            return 30;
+        }
+
 
     }
 

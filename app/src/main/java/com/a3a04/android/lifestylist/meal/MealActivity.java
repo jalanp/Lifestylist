@@ -19,6 +19,7 @@ import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.MealLog;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.main.MainActivity;
+import com.a3a04.android.lifestylist.main.MainController;
 import com.a3a04.android.lifestylist.main.SettingsActivity;
 import com.a3a04.android.lifestylist.sleep.SleepActivity;
 import com.a3a04.android.lifestylist.workout.WorkoutActivity;
@@ -31,6 +32,7 @@ public class MealActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
     Button mFindFood;
+    MainController mainControl;
     MealController mealControl;
     public static final String MY_PREFS_NAME = "SharedPref";
     int mealToggle;
@@ -43,10 +45,9 @@ public class MealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
 
-        renderLayout();
-
         mealControl = new MealController(getApplicationContext());
-
+        mainControl = new MainController(getApplicationContext());
+        renderLayout();
     }
 
 
@@ -73,15 +74,27 @@ public class MealActivity extends AppCompatActivity {
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
-        List<MealLog> stuff = db.getAllMealLogs();
-        for (int i = 0; i < stuff.size(); i++){
-            t.append(stuff.get(i).getID() + "\t\t"
-                    + stuff.get(i).getDate() + "\t\t"
-                    + stuff.get(i).getTime() + "\t\t"
-                    + stuff.get(i).getCalories());
-            t.append("\n");
+//        List<MealLog> stuff = db.getAllMealLogs();
+//        for (int i = 0; i < stuff.size(); i++){
+//            t.append(stuff.get(i).getID() + "\t\t"
+//                    + stuff.get(i).getDate() + "\t\t"
+//                    + stuff.get(i).getTime() + "\t\t"
+//                    + stuff.get(i).getCalories());
+//            t.append("\n");
+//
+//        }
 
-        }
+//        String[] mealRec = mealControl.generateRecommendation();
+//        t.append("\n");
+//        t.append("Recommended Meal:      " + mealRec[0]);
+//        t.append("\n");
+//        t.append("Type of Meal:      " + mealRec[1]);
+//        t.append("\n");
+//        t.append("Calories for Meal:      " + mealRec[2]);
+//        t.append("\n");
+//        t.append("Calorie Intake Today:      " + mealControl.getDailyCalorieData());
+//        t.append("\n");
+//        t.append("Calorie Intake Yesterday:  " + mealControl.getYesterdaysCalorieData());
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         int restoredText = prefs.getInt("FirstTime", -1);
@@ -140,16 +153,12 @@ public class MealActivity extends AppCompatActivity {
         }
 
         db.closeDB();
+        try {
+            this.updateTextView();
+        }catch (Exception e){
+
+        }
     }
-
-
-
-
-
-
-
-
-
 
 
     public void logCalories(View view){
@@ -176,6 +185,7 @@ public class MealActivity extends AppCompatActivity {
         db.closeDB();
 
         this.updateTextView();
+        mainControl.updateRecommendationRequest(1);
     }
 
     public void updateTextView(){
@@ -195,7 +205,13 @@ public class MealActivity extends AppCompatActivity {
             t.append("\n");
         }
 
-
+        String[] mealRec = mealControl.generateRecommendation();
+        t.append("\n");
+        t.append("Recommended Meal:      " + mealRec[0]);
+        t.append("\n");
+        t.append("Type of Meal:      " + mealRec[1]);
+        t.append("\n");
+        t.append("Calories for Meal:      " + mealRec[2]);
         t.append("\n");
         t.append("Calorie Intake Today:      " + mealControl.getDailyCalorieData());
         t.append("\n");

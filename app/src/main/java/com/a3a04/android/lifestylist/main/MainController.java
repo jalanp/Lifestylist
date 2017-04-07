@@ -1,6 +1,9 @@
 package com.a3a04.android.lifestylist.main;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.MealLog;
 import com.a3a04.android.lifestylist.database.SleepLog;
@@ -22,16 +25,53 @@ public class MainController {
     MealController mealControl;
     WorkoutController workoutControl;
     SleepController sleepControl;
+    Context c;
+
 
     public MainController(){
         super();
+        //mealControl = new MealController();
+        //workoutControl = new WorkoutController();
+        //sleepControl = new SleepController();
+    }
+
+    public MainController(Context context){
+        super();
+        mealControl = new MealController(context);
+        workoutControl = new WorkoutController(context);
+        sleepControl = new SleepController(context);
+        c = context;
     }
 
     public void updateRecommendationRequest(int id){
 
+        SharedPreferences prefs = c.getSharedPreferences("SharedPref", Context.MODE_PRIVATE);
+        int mealToggle = prefs.getInt("MealToggle", -1);
+        int sleepToggle = prefs.getInt("SleepToggle", -1);
+        int workoutToggle = prefs.getInt("WorkoutToggle", -1);
+
+        switch (id){
+            case 1:
+                if (workoutToggle == 1)
+                    workoutControl.generateRecommendation();
+                if (sleepToggle == 1)
+                    sleepControl.generateRecommendation();
+            case 2:
+                if (mealToggle == 1)
+                    mealControl.generateRecommendation();
+                if (sleepToggle == 1)
+                    sleepControl.generateRecommendation();
+            case 3:
+                if (workoutToggle == 1)
+                    workoutControl.generateRecommendation();
+                if (mealToggle == 1)
+                    mealControl.generateRecommendation();
+        }
+
+
     }
 
-    // Won't work because need to return three different things.
+    // Won't work because need to return three different things. DEPRECATED
 //    public void getSubsystemData(int id){
 //
 //        switch(id){
@@ -99,6 +139,29 @@ public class MainController {
 
     public int getCaloriesYesterday(){
         return mealControl.getYesterdaysCalorieData();
+    }
+
+    public int getRecommendedActiveMinutes(){
+        return workoutControl.generateRecommendation();
+    }
+
+    public double getRecommendedSleepTime(){
+        return sleepControl.generateRecommendation();
+    }
+
+    public int getAge(){
+        DatabaseHandler db = new DatabaseHandler(c);
+        return db.getPersonalData(1).getAge();
+    }
+
+    public int getGender(){
+        DatabaseHandler db = new DatabaseHandler(c);
+        return db.getPersonalData(1).getGender();
+    }
+
+    public int getWeight(){
+        DatabaseHandler db = new DatabaseHandler(c);
+        return db.getPersonalData(1).getWeight();
     }
 
 }

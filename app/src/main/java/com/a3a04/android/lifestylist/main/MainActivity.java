@@ -18,8 +18,11 @@ import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.PersonalData;
 import com.a3a04.android.lifestylist.meal.MealActivity;
+import com.a3a04.android.lifestylist.meal.MealController;
 import com.a3a04.android.lifestylist.sleep.SleepActivity;
+import com.a3a04.android.lifestylist.sleep.SleepController;
 import com.a3a04.android.lifestylist.workout.WorkoutActivity;
+import com.a3a04.android.lifestylist.workout.WorkoutController;
 
 import java.util.List;
 
@@ -30,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn,mSettingsBtn;
     public static final String MY_PREFS_NAME = "SharedPref";
+    MainController mainController;
+    MealController mealController;
+    WorkoutController workoutController;
+    SleepController sleepController;
     int mealToggle;
     int sleepToggle;
     int workoutToggle;
@@ -38,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                mainController = new MainController(getApplicationContext());
+                mealController = new MealController(getApplicationContext());
+                workoutController = new WorkoutController(getApplicationContext());
+                sleepController = new SleepController(getApplicationContext());
+            }
+        };
+
+        new Thread(runnable).start();
 
         mActionBar = getSupportActionBar();
         mActionBar.setTitle("Dashboard");

@@ -22,7 +22,7 @@ public class MealController {
 
 
     DatabaseHandler userLogs;
-    MainController mainControl = new MainController();
+    MainController mainControl;
     List<WorkoutLog> workoutLogs;
     List<SleepLog> sleepLogs;
 
@@ -34,12 +34,17 @@ public class MealController {
     int sleepToggle;
     int workoutToggle;
 
-    protected MealController(){
+    public MealController(){
         super();
     }
 
     public MealController(Context context){
         userLogs = new DatabaseHandler(context);
+        mealItems = new ArrayList<>();
+        breakfasts = new ArrayList<>();
+        lunches = new ArrayList<>();
+        dinners = new ArrayList<>();
+        snacks = new ArrayList<>();
 
         String mealDB = "Peanut Butter & Jelly Sandwich;breakfast;400\n" +
                 "Greek Yogurt with Maple-Nut Granola;breakfast;400\n" +
@@ -94,9 +99,12 @@ public class MealController {
 
     }
 
+
     public String[] generateRecommendation(){
 
-        updateRecommendation();
+
+        //updateRecommendation();
+        mainControl = new MainController(c);
 
         String[] recommendation = {};
         int age = 20;
@@ -130,25 +138,25 @@ public class MealController {
 
 
         if(workoutToggle==1 && sleepToggle==1){//Both on
-            double timeSlept = 7.5;
-            double weightLB = 140;
-            int activeMins = 30;
-            double weightKG = 140/2.2;
+            double timeSlept = mainControl.getTimeSlept(1);
+            double weightLB = mainControl.getWeight();
+            int activeMins = mainControl.getActiveMinsToday();
+            double weightKG = mainControl.getWeight()/2.2;
 
             int burnedCalsWorkout = Double.valueOf(0.0175 * 8 * weightLB * activeMins).intValue();
             int burnedCalsSleep = Double.valueOf(0.42 * weightKG * timeSlept).intValue();
             recommendation = recommendMeal(getCurrentCalories() + burnedCalsWorkout + burnedCalsSleep);
         }
         else if(workoutToggle==0 && sleepToggle==1){//Workout off, Sleep on
-            double timeSlept = 7.5;
-            double weight = 140;
+            double timeSlept = mainControl.getTimeSlept(1);
+            double weight = mainControl.getWeight();
 
             int burnedCals = Double.valueOf(0.42 * weight * timeSlept).intValue();
             recommendation = recommendMeal(getCurrentCalories() + burnedCals);
         }
         else if(workoutToggle==1 && sleepToggle==0){//Workout on, Sleep off
-            int activeMins = 30;
-            double weight = 140/2.2;
+            int activeMins = mainControl.getActiveMinsToday();
+            double weight = mainControl.getWeight()/2.2;
 
             int burnedCals = Double.valueOf(0.0175 * 8 * weight * activeMins).intValue();
             recommendation = recommendMeal(getCurrentCalories() + burnedCals);
@@ -197,6 +205,9 @@ public class MealController {
                 break;
             case 0:
                 recommendation = recommendBreakfast(cals/3);
+                break;
+            default:
+                recommendation = recommendSnack(cals);
                 break;
         }
         return recommendation;
@@ -252,8 +263,8 @@ public class MealController {
     }
 
     protected void updateRecommendation(){
-       workoutLogs = mainControl.getWorkoutData();
-       sleepLogs = mainControl.getSleepData();
+       //workoutLogs = mainControl.getWorkoutData();
+       //sleepLogs = mainControl.getSleepData();
     }
 
     /**

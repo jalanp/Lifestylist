@@ -19,6 +19,7 @@ import com.a3a04.android.lifestylist.R;
 import com.a3a04.android.lifestylist.database.DatabaseHandler;
 import com.a3a04.android.lifestylist.database.WorkoutLog;
 import com.a3a04.android.lifestylist.main.MainActivity;
+import com.a3a04.android.lifestylist.main.MainController;
 import com.a3a04.android.lifestylist.main.SettingsActivity;
 import com.a3a04.android.lifestylist.meal.MapsActivity;
 import com.a3a04.android.lifestylist.meal.MealActivity;
@@ -33,6 +34,7 @@ public class WorkoutActivity extends AppCompatActivity {
     ActionBar mActionBar;
     Button mMealBtn, mWorkoutBtn, mSleepBtn;
     Button mGymBtn;
+    MainController mainControl;
     WorkoutController workoutControl;
     public static final String MY_PREFS_NAME = "SharedPref";
     int mealToggle;
@@ -46,10 +48,9 @@ public class WorkoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
 
-        renderLayout();
-
+        mainControl = new MainController(getApplicationContext());
         workoutControl = new WorkoutController(getApplicationContext());
-
+        renderLayout();
 
     }
 
@@ -76,14 +77,21 @@ public class WorkoutActivity extends AppCompatActivity {
         t.setMovementMethod(new ScrollingMovementMethod());
         DatabaseHandler db = new DatabaseHandler(getApplicationContext());
 
-        List<WorkoutLog> stuff = db.getAllWorkoutLogs();
-        for (int i = 0; i < stuff.size(); i++){
-            t.append(stuff.get(i).getID() + "\t\t"
-                    + stuff.get(i).getDate() + "\t\t"
-                    + stuff.get(i).getTime() + "\t\t"
-                    + stuff.get(i).getActiveMins());
-            t.append("\n");
-        }
+//        List<WorkoutLog> stuff = db.getAllWorkoutLogs();
+//        for (int i = 0; i < stuff.size(); i++){
+//            t.append(stuff.get(i).getID() + "\t\t"
+//                    + stuff.get(i).getDate() + "\t\t"
+//                    + stuff.get(i).getTime() + "\t\t"
+//                    + stuff.get(i).getActiveMins());
+//            t.append("\n");
+//        }
+//        int recActMins =  mainControl.getRecommendedActiveMinutes();
+//        t.append("\n");
+//        t.append("Recommended Active Minutes:      " + recActMins);
+//        t.append("\n");
+//        t.append("Active Minutes Today:      " + workoutControl.getDailyActiveMinutesData());
+//        t.append("\n");
+//        t.append("Active Minutes Yesterday:  " + workoutControl.getYesterdaysActiveMinutesData());
 
         SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
         int restoredText = prefs.getInt("FirstTime", -1);
@@ -142,6 +150,11 @@ public class WorkoutActivity extends AppCompatActivity {
         }
 
         db.closeDB();
+        try {
+            this.updateTextView();
+        }catch (Exception e){
+
+        }
     }
 
     public void logActiveMinutes(View view){
@@ -169,6 +182,7 @@ public class WorkoutActivity extends AppCompatActivity {
         db.closeDB();
 
         this.updateTextView();
+        mainControl.updateRecommendationRequest(2);
     }
 
     public void updateTextView(){
@@ -186,6 +200,9 @@ public class WorkoutActivity extends AppCompatActivity {
             t.append("\n");
         }
 
+        int recActMins =  mainControl.getRecommendedActiveMinutes();
+        t.append("\n");
+        t.append("Recommended Active Minutes:      " + recActMins);
         t.append("\n");
         t.append("Active Minutes Today:      " + workoutControl.getDailyActiveMinutesData());
         t.append("\n");
